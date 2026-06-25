@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Office Chat Text</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="loginView" class="card login-card">
+      <div class="brand">
+        <div class="brand-icon">💬</div>
+        <div>
+          <h1>Office Chat</h1>
+          <p>輸入暱稱與房間代碼，即可開始文字聊天。</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <label for="nameInput">你的暱稱</label>
+        <input id="nameInput" type="text" autocomplete="name" maxlength="20" placeholder="例如：April" required />
+
+        <label for="roomInput">房間代碼</label>
+        <input id="roomInput" type="text" autocomplete="off" maxlength="50" placeholder="例如：office-chat-001" required />
+        <p class="hint">同事輸入相同房間代碼，就會進入同一個聊天室。</p>
+
+        <button type="submit" class="primary-button">進入聊天室</button>
+      </form>
+
+      <details class="setup-note">
+        <summary>第一次使用前需要設定 Firebase</summary>
+        <p>請先在 Firebase 啟用 Anonymous Authentication，建立 Realtime Database，並把設定值填入 app.js。</p>
+      </details>
+    </section>
+
+    <section id="chatView" class="chat-panel hidden" aria-live="polite">
+      <header class="chat-header">
+        <div>
+          <h2 id="roomTitle">Office Chat</h2>
+          <p id="userInfo">尚未連線</p>
+        </div>
+        <button id="leaveButton" class="ghost-button" type="button">離開</button>
+      </header>
+
+      <div class="message-list-wrap">
+        <div id="messageList" class="message-list"></div>
+      </div>
+
+      <footer class="composer text-only-composer">
+        <textarea id="messageInput" rows="1" maxlength="1000" placeholder="輸入訊息……"></textarea>
+        <button id="sendButton" class="send-button" type="button">送出</button>
+      </footer>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <!-- Firebase SDK：文字版只需要 App / Auth / Realtime Database -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
